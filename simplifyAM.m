@@ -32,7 +32,6 @@ beforeNodes=length(nodes);
 
 % This is the first run
 iteration = 0;
-figureNo = 1;
 
 % Initiate a progress bar
 step = 'Processing 2nd degree nodes...';
@@ -42,6 +41,8 @@ h = waitbar(0,step);
 while iteration == 0 || work > 0
     % Reset work counter to zero
     work = 0;
+
+    % Count the number of iterations
     iteration = iteration+1;    
     
     % Express the adjacency matrix in terms of 0s and 1s
@@ -100,17 +101,13 @@ while iteration == 0 || work > 0
     DAM(reallyRemove,:)=[];
     nodes(reallyRemove,:)=[];
 
-    % Show the distribution of node degrees before and after the simplification
-    if iteration == 0 || work == 0    
-        subplot(2,2,figureNo);
-        figureNo=figureNo+1;        
+    % Show the distribution of node degrees before and after the simplification    
+    if iteration == 1 || work == 0  
+        figure;
         hist(nodeDegrees);
-        subplot(2,2,figureNo);
-        figureNo=figureNo+1;           
+        figure;
         wgPlot(HAM,nodes,'vertexMarker','none');
     end
-    
-    % Count the number of iterations
 end
 
 % Close the progress bar
