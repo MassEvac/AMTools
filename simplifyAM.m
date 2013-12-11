@@ -22,6 +22,8 @@ function [HAM,DAM,nodes]=simplifyAM(HAM,DAM,nodes)
 %               index for reference by HAM & DAM
 % EXAMPLE:
 %           [HAM,DAM,nodes] = removeAM2DegreeNodes(HAM,DAM,nodes)
+% REPOSITORY:
+%           https://github.com/bkunwar/AMTools
 
 % Before state
 beforeEdges=length(find(DAM));
