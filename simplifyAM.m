@@ -1,4 +1,4 @@
-%function [HAM,DAM,nodes]=removeAM2DegreeNodes(HAM,DAM,nodes)
+function [HAM,DAM,nodes]=simplifyAM(HAM,DAM,nodes)
 % Prunes out 2nd degree nodes and the intermediate edges from HAM, DAM
 %
 % DETAIL:
@@ -112,8 +112,6 @@ end
 
 % Close the progress bar
 close(h);
-
-
 
 % After state
 afterEdges=length(find(DAM));
