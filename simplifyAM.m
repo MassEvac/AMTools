@@ -1,4 +1,4 @@
-function [HAM,DAM,nodes]=simplifyAM(HAM,DAM,nodes)
+function [nodes,HAM,DAM,OAM]=simplifyAM(nodes,HAM,DAM,OAM)
 % Prunes out 2nd degree nodes and the intermediate edges from HAM, DAM
 %
 % DETAIL:
@@ -21,10 +21,14 @@ function [HAM,DAM,nodes]=simplifyAM(HAM,DAM,nodes)
 %           nodes (Double x 2) - Node longitude and latitude of the array
 %               index for reference by HAM & DAM
 % EXAMPLE:
-%           [HAM,DAM,nodes] = removeAM2DegreeNodes(HAM,DAM,nodes)
+%           [nodes,HAM,DAM,OAM] = removeAM2DegreeNodes(nodes,HAM,DAM,OAM)
 % AUTHOR:
 %           Bharat Kunwar
 %           https://github.com/bkunwar/AMTools
+
+if ~exist('OAM','var')
+    OAM = false;
+end
 
 % Before state
 beforeEdges=length(find(DAM));
@@ -39,6 +43,8 @@ h = waitbar(0,step);
 
 % Continue if it is the first run or if the last run yielded some work!
 while iteration == 0 || work > 0
+    save(['state/' datestr(now)]);
+    
     % Reset work counter to zero
     work = 0;
 
@@ -99,6 +105,10 @@ while iteration == 0 || work > 0
     HAM(reallyRemove,:)=[];            
     DAM(:,reallyRemove)=[];
     DAM(reallyRemove,:)=[];
+    if OAM
+        OAM(:,reallyRemove)=[];
+        OAM(reallyRemove,:)=[];    
+    end
     nodes(reallyRemove,:)=[];
 
     % Show the distribution of node degrees before and after the simplification    
